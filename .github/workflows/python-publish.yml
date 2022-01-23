@@ -33,4 +33,4 @@ jobs:
       uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
       with:
         user: CardinTiako
-        password: pypi-AgEIcHlwaS5vcmcCJGRiYTVlZWIxLWM3NmQtNDJjZi04MGQ2LTk5ZmU2YzU4YmZlNAACPHsicGVybWlzc2lvbnMiOiB7InByb2plY3RzIjogWyJib3QtZXh0ZXJuZSJdfSwgInZlcnNpb24iOiAxfQAABiChm4e6CAtRTzSBXL_cI7mYy7Io3UFymuU3YmHMTrPjdw
+        password: BOT_EXTERNE
