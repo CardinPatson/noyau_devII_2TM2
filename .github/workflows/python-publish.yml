@@ -33,4 +33,4 @@ jobs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         user: CardinTiako
-        password: Pypi.com.2020
+        password: ${{ secrets.BOT_EXTERNE }}
