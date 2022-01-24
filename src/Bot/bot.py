@@ -27,12 +27,13 @@ class Bot:
         handler.setFormatter(formatter)
         logger.addHandler(handler)
         self.__help = help_file
-
+        logger.info("Execution de la commande " + message)
         self.__message = Request(message).get_message(command_list)
         self.error = "Mauvaise syntaxe veuillez entrez /help pour plus de précision!"
 
     def __str__(self):
         if isinstance(self.__message, list):
+
             return self.process_request(self.__message)
         else:
             logger.error(self.__message)
@@ -71,14 +72,14 @@ class Bot:
         if isinstance(message, list):
 
             if message[0] == "/help":
-                logger.info("Execution de la commande " + " ".join(message))
+
                 return self.get_help(self._help)
 
             elif message[0] == "/weather":
                 if len(message) == 1:
                     return Weather().get_weather()
                 if len(message) == 2:
-                    return Weather(message[0]).get_weather()
+                    return Weather(message[1]).get_weather()
 
                 if len(message) > 2:
                     logger.error(self.error)

@@ -7,7 +7,9 @@ on:
     branches: [ console ]
   pull_request:
     branches: [ console ]
-
+  release:
+    types: [ published ]
+    branches : [ console ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 

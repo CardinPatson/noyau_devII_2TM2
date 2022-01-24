@@ -2,7 +2,9 @@
 from .config import headers, itinerary_link, open_street_link
 import requests
 
+import logging
 
+logger = logging.getLogger("bot")
 class ParameterException(Exception):
     pass
 
@@ -13,6 +15,7 @@ class Itinerary:
         self.__destination_address = destination_address
 
         if not self.__destination_address:
+            logger.error("Itinerary : Bad parameter")
             raise ParameterException("Erreur de paramètre")
 
         self.__url_address_origin = itinerary_link(origin_address)
@@ -59,9 +62,11 @@ class Itinerary:
         response_origin = requests.get(self.url_address_origin).json()
 
         response_destination = requests.get(self.url_address_destination).json()
-
-        self.process_request(response_origin[0]["lon"], response_origin[0]["lat"],
-                             response_destination[0]["lon"], response_destination[0]["lat"])
+        try:
+            self.process_request(response_origin[0]["lon"], response_origin[0]["lat"],
+                                 response_destination[0]["lon"], response_destination[0]["lat"])
+        except ConnectionError:
+            logger.error("Itinerary : can't process to the request")
 
         steps = self.response["features"][0]["properties"]["segments"][0]["steps"]
 

@@ -3,6 +3,10 @@ import requests
 import datetime
 from .config import news_link
 
+import logging
+
+logger = logging.getLogger("bot")
+
 
 class ParameterException(Exception):
     pass
@@ -76,6 +80,7 @@ class News:
                 self.api_link + self.country + self.languages + self.limit + self.keyword + self.date)
 
         except ValueError:
+            logger.error("News : Can't process to the request")
             return "Erreur dans le get"
 
         current = reponse.json()

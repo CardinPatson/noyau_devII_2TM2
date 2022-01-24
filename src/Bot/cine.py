@@ -2,6 +2,9 @@
 from .config import cine_link
 import requests
 
+import logging
+logger = logging.getLogger("bot")
+
 
 class RequestError(Exception):
     pass
@@ -36,6 +39,7 @@ class Cine:
         response = requests.get(self.url_origin).json()
 
         if not len(response):
+            logger.error("Can't fetch Cinema")
             raise RequestError("Can't fetch Cinema")
 
         cine = ""

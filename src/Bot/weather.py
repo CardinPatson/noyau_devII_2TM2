@@ -1,7 +1,9 @@
 import requests
-
+import logging
 from .codesTemps import codesTemps
 from .config import weather_stack
+
+logger = logging.getLogger("bot")
 
 
 class ParameterException(Exception):
@@ -42,6 +44,7 @@ class Weather:
         try:
             response = requests.get(self.api_link)
         except ValueError:
+            logger.error("Weather : Can't process the api request")
             return "Erreur dans le get"
 
         current = response.json()

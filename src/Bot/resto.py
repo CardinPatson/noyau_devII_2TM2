@@ -2,6 +2,10 @@
 from .config import resto_link
 import requests
 
+import logging
+
+logger = logging.getLogger("bot")
+
 
 class RequestError(Exception):
     pass
@@ -37,6 +41,7 @@ class Resto:
         response = requests.get(self.url_origin).json()
 
         if not len(response):
+            logger.error("Resto : Can't fetch Restaurant")
             raise RequestError("Can't fetch Restaurant")
 
         restaurant = ""

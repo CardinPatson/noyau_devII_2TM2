@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from pymongo import MongoClient
 from .config import CERTIFICATE_FILE
+import logging
+
+logger = logging.getLogger("bot")
 
 
 class ParameterException(Exception):
@@ -11,13 +14,13 @@ class MongoConnector:
     def __init__(self):
         uri = "mongodb+srv://cluster0.5i6qo.gcp.mongodb.net/ephecom-2TM2?authSource=%24external&authMechanism=MONGODB" \
               "-X509&retryWrites=true&w=majority&ssl_cert_reqs=CERT_NONE"
-
         client = MongoClient(uri,
                              tls=True,
                              tlsCertificateKeyFile=CERTIFICATE_FILE)
         self.db = client["ephecom-2TM2"]
 
     def __enter__(self):
+        logger.info("Connection to the database")
         return self
 
     def __exit__(self):
@@ -38,6 +41,7 @@ class Opinion(MongoConnector):
                 res = self.collection.findOne()
                 print(res)
         except Exception as e:
+            logger.error(e)
             print(e)
 
     def set_opinion(self):
@@ -58,4 +62,5 @@ class Opinion(MongoConnector):
             self.collection.update_one({"_id": self.id}, {"$set": {"message": self.message}})
             return "Votre avis a bien été envoyé. Nous en tiendrons compte !"
         else:
+            logger.error(self.error)
             return self.error

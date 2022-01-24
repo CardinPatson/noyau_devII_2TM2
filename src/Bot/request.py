@@ -31,6 +31,7 @@ class Request:
 
         """
         if check_conection():
+            logger.error("Error connection")
             self.set_message("Please check your internet connection")
             return self.message
         message_words = self.message.split(" ")
@@ -41,5 +42,6 @@ class Request:
             self.set_message("Commande introuvable! Entrez /help pour voir la liste des commandes")
             return self.message
         else:
+            logger.warning("Commande introuvable!!")
             self.set_message("Commande introuvable! Entrez /help pour voir la liste des commandes")
             return self.message
